@@ -1,52 +1,41 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include <stdlib.h>
+#include <stdio.h>
 #include <stdarg.h>
-/**
- * struct flags - struct containing flags to "turn on"
- * when a flag specifier is passed to _printf()
- * @plus: flag for the '+' character
- * @space: flag for the ' ' character
- * @hash: flag for the '#' character
- */
-typedef struct flags
-{
-	int plus;
-	int space;
-	int hash;
-} flags_t;
+#include <string.h>
+
+int _putchar(char c);
+int _printf(const char *format, ...);
+int print_fstring(int *pos, const char *format, va_list ap);
+int print_string(va_list ap);
+int print_char(va_list ap);
+int print_percent(va_list ap);
+int print_int(va_list ap);
+int print_unsigned_int(va_list ap);
+int print_octal_number(va_list ap);
+int print_hexadecimal(va_list ap);
+int print_hexadecimal_cap(va_list ap);
+int print_hexadecimal_all(va_list ap, char c);
 
 /**
- * struct printHandler - struct to choose the right function depending
- * on the format specifier passed to _printf()
- * @c: format specifier
- * @f: pointer to the correct printing function
+ * struct conv_spec - Struct op
+ *
+ * @spec: The specifier.
+ * @func: The function associated with the specifier.
  */
-typedef struct printHandler
+struct conv_spec
 {
-	char c;
-	int (*f)(va_list ap, flags_t *f);
-} ph;
-int print_int(va_list l, flags_t *f);
-void print_number(int n);
-int print_unsigned(va_list l, flags_t *f);
-int count_digit(int i);
-int print_hex(va_list l, flags_t *f);
-int print_hex_big(va_list l, flags_t *f);
-int print_binary(va_list l, flags_t *f);
-int print_octal(va_list l, flags_t *f);
-char *convert(unsigned long int num, int base, int lowercase);
-int _printf(const char *format, ...);
-int (*get_print(char s))(va_list, flags_t *);
-int get_flag(char s, flags_t *f);
-int print_string(va_list l, flags_t *f);
-int print_char(va_list l, flags_t *f);
-int _putchar(char c);
-int _puts(char *str);
-int print_rot13(va_list l, flags_t *f);
-int print_rev(va_list l, flags_t *f);
-int print_bigS(va_list l, flags_t *f);
-int print_address(va_list l, flags_t *f);
-int print_percent(va_list l, flags_t *f);
-#endif
+	char spec;
+	int (*func)(va_list);
+};
+
+/**
+ * typedef struct conv_spec conv_spec_t - struct op
+ *
+ * @conv_spec: The struct.
+ * @conv_spec_t: The name associated to the struct.
+ */
+typedef struct conv_spec conv_spec_t;
+
+#endif /* MAIN_H */
